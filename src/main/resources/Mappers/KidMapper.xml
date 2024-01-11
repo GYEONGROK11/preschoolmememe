@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.preschool.preschoolhome.kid.KidMapper">
+    <insert id="kidSignup">
 
+        <selectKey resultType="String" keyProperty="code" order="BEFORE">
+            SELECT SUBSTR(MD5(RAND()),1,10) AS code
+        </selectKey>
+        INSERT t_kid
+        SET kidnm = #{kidNm},
+        iclass = #{iclass},
+        gender = #{gender},
+        profile = #{profile},
+        birth = #{birth},
+        address = #{address},
+        code = #{code},
+        memo = #{memo},
+        emernm = #{emernm},
+        emernb = #{emernb}
+    </insert>
+
+    <select id="selIkid">
+        SELECT ikid
+        FROM t_kid
+        WHERE kidnm = #{kidNm}
+        AND code = #{code}
+    </select>
 
 </mapper>
