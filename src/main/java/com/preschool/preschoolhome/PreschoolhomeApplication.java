@@ -1,13 +1,13 @@
-package com.meme.preschoolmememe;
+package com.preschool.preschoolhome;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PreschoolmememeApplication {
+public class PreschoolhomeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PreschoolmememeApplication.class, args);
+        SpringApplication.run(PreschoolhomeApplication.class, args);
     }
 
 }

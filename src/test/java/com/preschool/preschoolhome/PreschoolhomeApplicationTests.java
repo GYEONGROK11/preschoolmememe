@@ -1,10 +1,10 @@
-package com.meme.preschoolmememe;
+package com.preschool.preschoolhome;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PreschoolmememeApplicationTests {
+class PreschoolhomeApplicationTests {
 
     @Test
     void contextLoads() {
