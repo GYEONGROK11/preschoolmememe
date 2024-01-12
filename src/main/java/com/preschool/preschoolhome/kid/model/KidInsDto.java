@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class KidInsDto {
     @JsonIgnore
+    private int result;
+    @JsonIgnore
     private int ikid;
     private String kidNm;
     private int iclass;
@@ -13,6 +15,7 @@ public class KidInsDto {
     private String profile;
     private String birth;
     private String address;
+    @JsonIgnore
     private String code;
     private String memo;
     private int irank;

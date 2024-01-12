@@ -9,15 +9,15 @@
         </selectKey>
         INSERT t_kid
         SET kidnm = #{kidNm},
-        iclass = #{iclass},
-        gender = #{gender},
-        profile = #{profile},
         birth = #{birth},
+        gender = #{gender},
+        iclass = #{iclass},
         address = #{address},
+        profile = #{profile},
         code = #{code},
-        memo = #{memo},
         emernm = #{emernm},
-        emernb = #{emernb}
+        emernb = #{emernb},
+        memo = #{memo}
     </insert>
 
     <select id="selIkid">
@@ -26,5 +26,28 @@
         WHERE kidnm = #{kidNm}
         AND code = #{code}
     </select>
+    
+    <update id="kidProfile">
+        UPDATE t_kid
+        SET kidnm = #{kidNm},
+        birth = #{birth},
+        gender = #{gender},
+        iclass = #{iclass},
+        address = #{address},
+        profile = #{profile},
+        code = #{code},
+        emernm = #{emernm},
+        emernb = #{emernb},
+        memo = #{memo}
+        WHERE ikid = #{ikid}
+    </update>
+    
+    <select id="KidEdit">
+        SELECT kidNm, birth, gender, iclass, address
+        , profile, code, emernm, emernb, memo
+        FROM t_kid
+        WHERE ikid = #{ikid}
 
+    </select>
+    
 </mapper>

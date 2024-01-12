@@ -3,12 +3,10 @@ package com.preschool.preschoolhome.kid;
 import com.preschool.preschoolhome.common.ResVo;
 import com.preschool.preschoolhome.kid.model.KidInsDto;
 import com.preschool.preschoolhome.kid.model.KidInsVo;
+import com.preschool.preschoolhome.kid.model.KidUpdDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,4 +19,16 @@ public class KidController {
     public KidInsVo postKidSignup(@RequestBody KidInsDto dto){
         return service.kidSignup(dto);
     }
+
+    @GetMapping("/detail/edit/{ikid}")
+    public KidInsDto getKidDetailEdit(@RequestParam int ikid,int irank){
+        return service.kidDetailEdit(ikid,irank);
+    }
+
+
+    @PutMapping
+    public ResVo putKidProfile(@RequestBody KidUpdDto dto){
+        return service.kidProfile(dto);
+    }
+
 }
