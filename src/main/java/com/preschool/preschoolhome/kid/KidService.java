@@ -2,13 +2,14 @@ package com.preschool.preschoolhome.kid;
 
 import com.preschool.preschoolhome.common.Const;
 import com.preschool.preschoolhome.common.ResVo;
+import com.preschool.preschoolhome.kid.model.KidDetailInsDto;
+import com.preschool.preschoolhome.kid.model.sel.KidDetailEditVo;
 import com.preschool.preschoolhome.kid.model.KidInsDto;
 import com.preschool.preschoolhome.kid.model.KidInsVo;
 import com.preschool.preschoolhome.kid.model.KidUpdDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @RequiredArgsConstructor
@@ -32,8 +33,17 @@ public class KidService {
         return vo2;
     }
 
-    public KidInsDto kidDetailEdit(int ikid, int irank) {
-        KidInsDto vo = new KidInsDto();
+    public ResVo kidDetail(KidDetailInsDto dto){
+        if (dto.getHeight() == 0 || dto.getWeight() == 0 ||
+                dto.getGrowthMemo() ==null || dto.getIrank() < 2) {
+            return new ResVo(Const.FAIL);
+        }
+        mapper.kidDetail(dto);
+        return new ResVo(Const.SUCCESS);
+    }
+
+    public KidDetailEditVo kidDetailEdit(int ikid, int irank) {
+        KidDetailEditVo vo = new KidDetailEditVo();
         if (irank < 2) {
             vo.setResult(Const.FAIL);
             return vo;

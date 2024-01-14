@@ -35,16 +35,15 @@
         iclass = #{iclass},
         address = #{address},
         profile = #{profile},
-        code = #{code},
         emernm = #{emernm},
         emernb = #{emernb},
         memo = #{memo}
         WHERE ikid = #{ikid}
     </update>
     
-    <select id="KidEdit">
+    <select id="kidDetailEdit">
         SELECT kidNm, birth, gender, iclass, address
-        , profile, code, emernm, emernb, memo
+        , profile, emernm, emernb, memo
         FROM t_kid
         WHERE ikid = #{ikid}
 

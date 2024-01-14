@@ -1,11 +1,12 @@
-package com.preschool.preschoolhome.kid.model;
+package com.preschool.preschoolhome.kid.model.sel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
-public class KidUpdDto {
-    private int ikid;
+public class KidDetailEditVo {
+    @JsonIgnore
+    private int result;
     private String kidNm;
     private int iclass;
     private int gender;
@@ -13,7 +14,7 @@ public class KidUpdDto {
     private String birth;
     private String address;
     private String memo;
-    private int irank;
     private String emernm;
     private String emernb;
+
 }
