@@ -5,7 +5,7 @@
     <insert id="kidGrowthInsDetail">
         INSERT t_growth
         SET ikid = #{ikid}
-        , date = #{date}
+        , growthDate = #{growthDate}
         <if test="polite > 0">
             , polite = #{polite}
         </if>
@@ -22,7 +22,7 @@
     <insert id="kidBodyInsDetail">
         INSERT t_body
         SET ikid = #{ikid}
-        , date = #{date}
+        , bodyDate = #{bodyDate}
         <if test="height > 0">
             , height = #{height}
         </if>
@@ -48,7 +48,7 @@
         </if>
         </set>
         WHERE ikid = #{ikid}
-        and date = #{date}
+        and growthDate = #{growthDate}
     </update>
     <update id="kidBodyUpdDetail">
         UPDATE t_body
@@ -61,7 +61,7 @@
         </if>
         </set>
         WHERE ikid = #{ikid}
-        and date = #{date}
+        and bodyDate = #{bodyDate}
     </update>
 
     <insert id="kidSignup">

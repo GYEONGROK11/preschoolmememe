@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class KidService {
@@ -16,8 +18,8 @@ public class KidService {
     public KidInsVo kidSignup(KidInsDto dto) {
 
         if (dto.getKidNm() == null || dto.getBirth() == null ||
-                dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
-                dto.getProfile() == null || dto.getIrank() < 2) {
+            dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
+            dto.getProfile() == null || dto.getIrank() < 2) {
             KidInsVo vo1 = new KidInsVo();
             vo1.setResult(Const.FAIL);
             return vo1;
@@ -30,28 +32,36 @@ public class KidService {
         return vo2;
     }
 
-    public ResVo kidInsDetail(KidDetailInsDto dto) {
-        if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
-            (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
-            (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
-            (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
-            (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
-            return new ResVo(Const.FAIL);
-        }
-        mapper.kidGrowthInsDetail(dto);
-        mapper.kidBodyInsDetail(dto);
-        return new ResVo(Const.SUCCESS);
-    }
-    ResVo kidUpdDetail(KidDetailUpdDto dto){
-        if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
+    public ResVo kidInsDetail(List<KidDetailInsDto> list) {
+        for (KidDetailInsDto dto : list ) {
+            if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
                 (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
                 (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
                 (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
                 (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
-            return new ResVo(Const.FAIL);
+                return new ResVo(Const.FAIL);
+            }
         }
-        mapper.kidGrowthUpdDetail(dto);
-        mapper.kidBodyUpdDetail(dto);
+        for (KidDetailInsDto dto : list ){
+            mapper.kidGrowthInsDetail(dto);
+            mapper.kidBodyInsDetail(dto);
+        }
+        return new ResVo(Const.SUCCESS);
+    }
+    ResVo kidUpdDetail(List<KidDetailUpdDto> list){
+        for (KidDetailUpdDto dto : list ) {
+            if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
+                (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
+                (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
+                (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
+                (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
+                return new ResVo(Const.FAIL);
+            }
+        }
+        for (KidDetailUpdDto dto : list ) {
+            mapper.kidGrowthUpdDetail(dto);
+            mapper.kidBodyUpdDetail(dto);
+        }
         return new ResVo(Const.SUCCESS);
     }
 
@@ -68,8 +78,8 @@ public class KidService {
 
     public ResVo kidProfile(KidUpdDto dto) {
         if (dto.getKidNm() == null || dto.getBirth() == null ||
-                dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
-                dto.getProfile() == null || dto.getIrank() < 2) {
+            dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
+            dto.getProfile() == null || dto.getIrank() < 2) {
             ResVo vo1 = new ResVo(Const.FAIL);
             return vo1;
         }

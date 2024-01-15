@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -25,12 +27,12 @@ public class KidController {
     }
 
     @PostMapping("/detail")
-    public ResVo postKidInsDetail(@RequestBody KidDetailInsDto dto){
+    public ResVo postKidInsDetail(@RequestBody List<KidDetailInsDto> dto){
         return service.kidInsDetail(dto);
     }
 
     @PutMapping("/detail")
-    public ResVo putKidUpdDetail(@RequestBody KidDetailUpdDto dto){
+    public ResVo putKidUpdDetail(@RequestBody List<KidDetailUpdDto> dto){
         return service.kidUpdDetail(dto);
     }
 

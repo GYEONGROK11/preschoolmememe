@@ -12,4 +12,6 @@ public class KidDetailUpdDto {
     private int activity;
     private int creativity;
     private String growthMemo;
+    private String growthDate;
+    private String bodyDate;
 }
