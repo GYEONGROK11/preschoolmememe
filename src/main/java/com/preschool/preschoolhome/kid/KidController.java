@@ -1,11 +1,8 @@
 package com.preschool.preschoolhome.kid;
 
 import com.preschool.preschoolhome.common.ResVo;
-import com.preschool.preschoolhome.kid.model.KidDetailInsDto;
+import com.preschool.preschoolhome.kid.model.*;
 import com.preschool.preschoolhome.kid.model.sel.KidDetailEditVo;
-import com.preschool.preschoolhome.kid.model.KidInsDto;
-import com.preschool.preschoolhome.kid.model.KidInsVo;
-import com.preschool.preschoolhome.kid.model.KidUpdDto;
 import com.preschool.preschoolhome.kid.model.sel.KidProfileVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +25,15 @@ public class KidController {
     }
 
     @PostMapping("/detail")
-    public ResVo postKidDetail(@RequestBody KidDetailInsDto dto){
-        return service.kidDetail(dto);
+    public ResVo postKidInsDetail(@RequestBody KidDetailInsDto dto){
+        return service.kidInsDetail(dto);
     }
+
+    @PutMapping("/detail")
+    public ResVo putKidUpdDetail(@RequestBody KidDetailUpdDto dto){
+        return service.kidUpdDetail(dto);
+    }
+
     @GetMapping("/detail/edit/{ikid}")
     public KidDetailEditVo getKidDetailEdit(@PathVariable int ikid, int irank){
         return service.kidDetailEdit(ikid,irank);

@@ -12,5 +12,4 @@ public class KidDetailInsDto {
     private int activity;
     private int creativity;
     private String growthMemo;
-    private String createdAt;
 }

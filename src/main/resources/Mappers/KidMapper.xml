@@ -2,22 +2,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.preschool.preschoolhome.kid.KidMapper">
-    <insert id="kidSignup">
+    <insert id="kidGrowthInsDetail">
+        INSERT t_growth
+        SET ikid = #{ikid}
+        , date = #{date}
+        <if test="polite > 0">
+            , polite = #{polite}
+        </if>
+        <if test="activity > 0">
+            , activity = #{activity}
+        </if>
+        <if test="creativity > 0">
+            , creativity = #{creativity}
+        </if>
+        <if test="growthMemo != null">
+            , growth_memo = #{growthMemo}
+        </if>
+    </insert>
+    <insert id="kidBodyInsDetail">
+        INSERT t_body
+        SET ikid = #{ikid}
+        , date = #{date}
+        <if test="height > 0">
+            , height = #{height}
+        </if>
+        <if test="weight > 0">
+            , weight = #{weight}
+        </if>
+    </insert>
 
+    <update id="kidGrowthUpdDetail">
+        UPDATE t_growth
+        <set>
+        <if test="polite > 0">
+            polite = #{polite}
+        </if>
+        <if test="activity > 0">
+            , activity = #{activity}
+        </if>
+        <if test="creativity > 0">
+            , creativity = #{creativity}
+        </if>
+        <if test="growthMemo != null">
+            , growth_memo = #{growthMemo}
+        </if>
+        </set>
+        WHERE ikid = #{ikid}
+        and date = #{date}
+    </update>
+    <update id="kidBodyUpdDetail">
+        UPDATE t_body
+        <set>
+        <if test="height > 0">
+            height = #{height}
+        </if>
+        <if test="weight > 0">
+            , weight = #{weight}
+        </if>
+        </set>
+        WHERE ikid = #{ikid}
+        and date = #{date}
+    </update>
+
+    <insert id="kidSignup">
         <selectKey resultType="String" keyProperty="code" order="BEFORE">
             SELECT SUBSTR(MD5(RAND()),1,10) AS code
         </selectKey>
         INSERT t_kid
-        SET kidnm = #{kidNm},
-        birth = #{birth},
-        gender = #{gender},
-        iclass = #{iclass},
-        address = #{address},
-        profile = #{profile},
-        code = #{code},
-        emernm = #{emernm},
-        emernb = #{emernb},
-        memo = #{memo}
+        SET kidnm = #{kidNm}
+        , birth = #{birth}
+        , gender = #{gender}
+        , iclass = #{iclass}
+        , address = #{address}
+        , profile = #{profile}
+        , code = #{code}
+        , emernm = #{emernm}
+        , emernb = #{emernb}
+        , memo = #{memo}
     </insert>
 
     <select id="selIkid">
@@ -29,15 +90,15 @@
     
     <update id="kidProfile">
         UPDATE t_kid
-        SET kidnm = #{kidNm},
-        birth = #{birth},
-        gender = #{gender},
-        iclass = #{iclass},
-        address = #{address},
-        profile = #{profile},
-        emernm = #{emernm},
-        emernb = #{emernb},
-        memo = #{memo}
+        SET kidnm = #{kidNm}
+        , birth = #{birth}
+        , gender = #{gender}
+        , iclass = #{iclass}
+        , address = #{address}
+        , profile = #{profile}
+        , emernm = #{emernm}
+        , emernb = #{emernb}
+        , memo = #{memo}
         WHERE ikid = #{ikid}
     </update>
     

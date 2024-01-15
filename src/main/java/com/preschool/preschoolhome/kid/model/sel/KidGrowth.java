@@ -10,4 +10,5 @@ public class KidGrowth {
     private int polite;
     private int activity;
     private int creativity;
+    private String growthMemo;
 }

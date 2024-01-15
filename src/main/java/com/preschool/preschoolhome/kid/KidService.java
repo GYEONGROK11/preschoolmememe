@@ -2,11 +2,8 @@ package com.preschool.preschoolhome.kid;
 
 import com.preschool.preschoolhome.common.Const;
 import com.preschool.preschoolhome.common.ResVo;
-import com.preschool.preschoolhome.kid.model.KidDetailInsDto;
+import com.preschool.preschoolhome.kid.model.*;
 import com.preschool.preschoolhome.kid.model.sel.KidDetailEditVo;
-import com.preschool.preschoolhome.kid.model.KidInsDto;
-import com.preschool.preschoolhome.kid.model.KidInsVo;
-import com.preschool.preschoolhome.kid.model.KidUpdDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,12 +30,28 @@ public class KidService {
         return vo2;
     }
 
-    public ResVo kidDetail(KidDetailInsDto dto){
-        if (dto.getHeight() == 0 || dto.getWeight() == 0 ||
-                dto.getGrowthMemo() ==null || dto.getIrank() < 2) {
+    public ResVo kidInsDetail(KidDetailInsDto dto) {
+        if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
+            (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
+            (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
+            (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
+            (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
             return new ResVo(Const.FAIL);
         }
-        mapper.kidDetail(dto);
+        mapper.kidGrowthInsDetail(dto);
+        mapper.kidBodyInsDetail(dto);
+        return new ResVo(Const.SUCCESS);
+    }
+    ResVo kidUpdDetail(KidDetailUpdDto dto){
+        if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
+                (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
+                (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
+                (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
+                (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
+            return new ResVo(Const.FAIL);
+        }
+        mapper.kidGrowthUpdDetail(dto);
+        mapper.kidBodyUpdDetail(dto);
         return new ResVo(Const.SUCCESS);
     }
 
