@@ -2,10 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.preschool.preschoolhome.kid.KidMapper">
+    <select id="kidProfile">
+        SELECT kid_nm as kidNm, iclass, gender, profile, birth
+        , address, memo, emer_nm as emerNm, emer_nb as emerNb
+        FROM t_kid
+        WHERE ikid = #{ikid}
+    </select>
+    <select id="kidParent">
+        SELECT a.iparent, a.uid, a.parent_nm as parentNm
+        , a.phone_nb as phoneNb, a.irelation
+        FROM t_parent a
+        JOIN t_parent_kid b
+        ON a.iparent = b.iparent
+        WHERE b.ikid = #{ikid}
+    </select>
+    <select id="kidGrowth">
+        SELECT a.height, a.weight, a.body_date as bodyDate, b.polite, b.activity
+        , b.creativity, b.growth_date as growthDate, b.growth_memo as growthMemo
+        FROM t_body a
+        LEFT JOIN t_growth b
+        ON a.quarterly = b.quarterly
+        WHERE a.ikid = #{ikid}
+    </select>
+
     <insert id="kidGrowthInsDetail">
         INSERT t_growth
         SET ikid = #{ikid}
-        , growthDate = #{growthDate}
+        , growth_date = #{growthDate}
         <if test="polite > 0">
             , polite = #{polite}
         </if>
@@ -22,7 +45,7 @@
     <insert id="kidBodyInsDetail">
         INSERT t_body
         SET ikid = #{ikid}
-        , bodyDate = #{bodyDate}
+        , body_date = #{bodyDate}
         <if test="height > 0">
             , height = #{height}
         </if>
@@ -36,11 +59,17 @@
         <set>
         <if test="polite > 0">
             polite = #{polite}
+            , activity = 0
+            , creativity = 0
         </if>
         <if test="activity > 0">
+            polite = 0
             , activity = #{activity}
+            , creativity = 0
         </if>
         <if test="creativity > 0">
+            polite = 0
+            , activity = 0
             , creativity = #{creativity}
         </if>
         <if test="growthMemo != null">
@@ -48,7 +77,7 @@
         </if>
         </set>
         WHERE ikid = #{ikid}
-        and growthDate = #{growthDate}
+        and growth_date = #{growthDate}
     </update>
     <update id="kidBodyUpdDetail">
         UPDATE t_body
@@ -61,7 +90,7 @@
         </if>
         </set>
         WHERE ikid = #{ikid}
-        and bodyDate = #{bodyDate}
+        and body_date = #{bodyDate}
     </update>
 
     <insert id="kidSignup">
@@ -69,45 +98,44 @@
             SELECT SUBSTR(MD5(RAND()),1,10) AS code
         </selectKey>
         INSERT t_kid
-        SET kidnm = #{kidNm}
+        SET kid_nm = #{kidNm}
         , birth = #{birth}
         , gender = #{gender}
         , iclass = #{iclass}
         , address = #{address}
         , profile = #{profile}
         , code = #{code}
-        , emernm = #{emernm}
-        , emernb = #{emernb}
+        , emer_nm = #{emerNm}
+        , emer_nb = #{emerNb}
         , memo = #{memo}
     </insert>
 
     <select id="selIkid">
         SELECT ikid
         FROM t_kid
-        WHERE kidnm = #{kidNm}
+        WHERE kid_nm = #{kidNm}
         AND code = #{code}
     </select>
     
-    <update id="kidProfile">
+    <update id="kidUpdProfile">
         UPDATE t_kid
-        SET kidnm = #{kidNm}
+        SET kid_nm = #{kidNm}
         , birth = #{birth}
         , gender = #{gender}
         , iclass = #{iclass}
         , address = #{address}
         , profile = #{profile}
-        , emernm = #{emernm}
-        , emernb = #{emernb}
+        , emer_nm = #{emerNm}
+        , emer_nb = #{emerNb}
         , memo = #{memo}
         WHERE ikid = #{ikid}
     </update>
     
     <select id="kidDetailEdit">
-        SELECT kidNm, birth, gender, iclass, address
-        , profile, emernm, emernb, memo
+        SELECT kid_nm as kidNm, birth, gender, iclass, address
+        , profile, emer_nm as emerNm, emer_nb as emerNb, memo
         FROM t_kid
         WHERE ikid = #{ikid}
-
     </select>
     
 </mapper>

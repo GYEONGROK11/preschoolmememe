@@ -5,10 +5,19 @@ import com.preschool.preschoolhome.kid.model.KidDetailUpdDto;
 import com.preschool.preschoolhome.kid.model.sel.KidDetailEditVo;
 import com.preschool.preschoolhome.kid.model.KidInsDto;
 import com.preschool.preschoolhome.kid.model.KidUpdDto;
+import com.preschool.preschoolhome.kid.model.sel.KidGrowth;
+import com.preschool.preschoolhome.kid.model.sel.KidParent;
+import com.preschool.preschoolhome.kid.model.sel.KidProfileVo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface KidMapper {
+    //원아 정보 출력
+    KidProfileVo kidProfile(int ikid);
+    List<KidGrowth> kidGrowth(int ikid);
+    List<KidParent> kidParent(int ikid);
     //원아등록
     int kidSignup(KidInsDto dto);
     int selIkid(KidInsDto dto);
@@ -19,7 +28,7 @@ public interface KidMapper {
     int kidGrowthUpdDetail(KidDetailUpdDto dto);
     int kidBodyUpdDetail(KidDetailUpdDto dto);
     //원아정보 수정
-    int kidProfile(KidUpdDto dto);
+    int kidUpdProfile(KidUpdDto dto);
     //원아 수정 시 기존 정보 출력
     KidDetailEditVo kidDetailEdit(int ikid);
 

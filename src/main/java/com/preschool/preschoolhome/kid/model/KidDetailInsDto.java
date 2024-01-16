@@ -14,4 +14,5 @@ public class KidDetailInsDto {
     private String growthMemo;
     private String growthDate;
     private String bodyDate;
+    private int quarterly;
 }

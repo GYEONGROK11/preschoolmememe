@@ -17,9 +17,9 @@ import java.util.List;
 public class KidController {
     private final KidService service;
 
-    @GetMapping
-    public KidProfileVo getKidProfile(){
-        return null;
+    @GetMapping("/{ikid}")
+    public KidProfileVo getKidProfile(@PathVariable int ikid, int irank){
+        return service.kidProfile(ikid,irank);
     }
     @PostMapping
     public KidInsVo postKidSignup(@RequestBody KidInsDto dto){
@@ -43,7 +43,7 @@ public class KidController {
 
     @PutMapping
     public ResVo putKidProfile(@RequestBody KidUpdDto dto){
-        return service.kidProfile(dto);
+        return service.kidUpdProfile(dto);
     }
 
 }

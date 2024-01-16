@@ -4,8 +4,12 @@ import com.preschool.preschoolhome.common.Const;
 import com.preschool.preschoolhome.common.ResVo;
 import com.preschool.preschoolhome.kid.model.*;
 import com.preschool.preschoolhome.kid.model.sel.KidDetailEditVo;
+import com.preschool.preschoolhome.kid.model.sel.KidGrowth;
+import com.preschool.preschoolhome.kid.model.sel.KidParent;
+import com.preschool.preschoolhome.kid.model.sel.KidProfileVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -15,8 +19,23 @@ import java.util.List;
 public class KidService {
     private final KidMapper mapper;
 
-    public KidInsVo kidSignup(KidInsDto dto) {
+    public KidProfileVo kidProfile(int ikid, int irank){
+        KidProfileVo vo = new KidProfileVo();
+        if (irank < 2) {
+            vo.setResult(Const.FAIL);
+            return vo;
+        }
+        vo = mapper.kidProfile(ikid);
+        vo.setResult(Const.SUCCESS);
+        List<KidParent> parents = mapper.kidParent(ikid);
+        List<KidGrowth> growths= mapper.kidGrowth(ikid);
+        vo.setGrowths(growths);
+        vo.setParents(parents);
+        return vo;
 
+    }
+
+    public KidInsVo kidSignup(KidInsDto dto) {
         if (dto.getKidNm() == null || dto.getBirth() == null ||
             dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
             dto.getProfile() == null || dto.getIrank() < 2) {
@@ -43,8 +62,24 @@ public class KidService {
             }
         }
         for (KidDetailInsDto dto : list ){
+            int month = Integer.parseInt(dto.getGrowthDate().substring(5,7));
+
+            switch (month/3){
+                case 0 :
+                    dto.setQuarterly(1);
+                    break;
+                case 1 :
+                    dto.setQuarterly(2);
+                case 2 :
+                    dto.setQuarterly(3);
+                case 3 :
+                    dto.setQuarterly(3);
+            }
+
             mapper.kidGrowthInsDetail(dto);
+
             mapper.kidBodyInsDetail(dto);
+
         }
         return new ResVo(Const.SUCCESS);
     }
@@ -76,14 +111,14 @@ public class KidService {
         return vo;
     }
 
-    public ResVo kidProfile(KidUpdDto dto) {
+    public ResVo kidUpdProfile(KidUpdDto dto) {
         if (dto.getKidNm() == null || dto.getBirth() == null ||
             dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
             dto.getProfile() == null || dto.getIrank() < 2) {
             ResVo vo1 = new ResVo(Const.FAIL);
             return vo1;
         }
-        mapper.kidProfile(dto);
+        mapper.kidUpdProfile(dto);
         return new ResVo(Const.SUCCESS);
     }
 }
