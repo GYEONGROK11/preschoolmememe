@@ -19,7 +19,7 @@ import java.util.List;
 public class KidService {
     private final KidMapper mapper;
 
-    public KidProfileVo kidProfile(int ikid, int irank){
+    public KidProfileVo kidProfile(int ikid, int irank) {
         KidProfileVo vo = new KidProfileVo();
         if (irank < 2) {
             vo.setResult(Const.FAIL);
@@ -28,7 +28,7 @@ public class KidService {
         vo = mapper.kidProfile(ikid);
         vo.setResult(Const.SUCCESS);
         List<KidParent> parents = mapper.kidParent(ikid);
-        List<KidGrowth> growths= mapper.kidGrowth(ikid);
+        List<KidGrowth> growths = mapper.kidGrowth(ikid);
         vo.setGrowths(growths);
         vo.setParents(parents);
         return vo;
@@ -37,8 +37,8 @@ public class KidService {
 
     public KidInsVo kidSignup(KidInsDto dto) {
         if (dto.getKidNm() == null || dto.getBirth() == null ||
-            dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
-            dto.getProfile() == null || dto.getIrank() < 2) {
+                dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
+                dto.getProfile() == null || dto.getIrank() < 2) {
             KidInsVo vo1 = new KidInsVo();
             vo1.setResult(Const.FAIL);
             return vo1;
@@ -52,30 +52,32 @@ public class KidService {
     }
 
     public ResVo kidInsDetail(List<KidDetailInsDto> list) {
-        for (KidDetailInsDto dto : list ) {
+        for (KidDetailInsDto dto : list) {
             if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
-                (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
-                (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
-                (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
-                (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
+                    (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
+                    (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
+                    (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
+                    (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
                 return new ResVo(Const.FAIL);
             }
         }
-        for (KidDetailInsDto dto : list ){
-            int month = Integer.parseInt(dto.getGrowthDate().substring(5,7));
-
-            switch (month/3){
-                case 0 :
-                    dto.setQuarterly(1);
-                    break;
-                case 1 :
-                    dto.setQuarterly(2);
-                case 2 :
-                    dto.setQuarterly(3);
-                case 3 :
-                    dto.setQuarterly(3);
+        for (KidDetailInsDto dto : list) {
+            int growthmonth = Integer.parseInt(dto.getGrowthDate().substring(5, 7));
+            int bodymonth = Integer.parseInt(dto.getBodyDate().substring(5, 7));
+            switch (growthmonth / 3) {
+                case 0: dto.setQuarterly(4);
+                case 1: dto.setQuarterly(1);
+                case 2: dto.setQuarterly(2);
+                case 3: dto.setQuarterly(3);
+                case 4: dto.setQuarterly(4);
             }
-
+            switch (bodymonth / 3) {
+                case 0: dto.setQuarterly(4);
+                case 1: dto.setQuarterly(1);
+                case 2: dto.setQuarterly(2);
+                case 3: dto.setQuarterly(3);
+                case 4: dto.setQuarterly(4);
+            }
             mapper.kidGrowthInsDetail(dto);
 
             mapper.kidBodyInsDetail(dto);
@@ -83,17 +85,18 @@ public class KidService {
         }
         return new ResVo(Const.SUCCESS);
     }
-    ResVo kidUpdDetail(List<KidDetailUpdDto> list){
-        for (KidDetailUpdDto dto : list ) {
+
+    ResVo kidUpdDetail(List<KidDetailUpdDto> list) {
+        for (KidDetailUpdDto dto : list) {
             if (dto.getHeight() < 1 || dto.getWeight() < 1 || dto.getIrank() < 2 ||
-                (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
-                (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
-                (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
-                (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
+                    (dto.getActivity() == 0 && dto.getCreativity() == 0 && dto.getPolite() == 0) ||
+                    (dto.getActivity() == 1 && dto.getCreativity() == 1 && dto.getPolite() == 0) ||
+                    (dto.getActivity() == 0 && dto.getCreativity() == 1 && dto.getPolite() == 1) ||
+                    (dto.getActivity() == 1 && dto.getCreativity() == 0 && dto.getPolite() == 1)) {
                 return new ResVo(Const.FAIL);
             }
         }
-        for (KidDetailUpdDto dto : list ) {
+        for (KidDetailUpdDto dto : list) {
             mapper.kidGrowthUpdDetail(dto);
             mapper.kidBodyUpdDetail(dto);
         }
@@ -113,8 +116,8 @@ public class KidService {
 
     public ResVo kidUpdProfile(KidUpdDto dto) {
         if (dto.getKidNm() == null || dto.getBirth() == null ||
-            dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
-            dto.getProfile() == null || dto.getIrank() < 2) {
+                dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
+                dto.getProfile() == null || dto.getIrank() < 2) {
             ResVo vo1 = new ResVo(Const.FAIL);
             return vo1;
         }

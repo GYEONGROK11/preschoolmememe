@@ -29,6 +29,7 @@
         INSERT t_growth
         SET ikid = #{ikid}
         , growth_date = #{growthDate}
+        , quarterly = #{}
         <if test="polite > 0">
             , polite = #{polite}
         </if>
