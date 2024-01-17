@@ -21,7 +21,7 @@
         , b.creativity, b.growth_date as growthDate, b.growth_memo as growthMemo
         FROM t_body a
         LEFT JOIN t_growth b
-        ON a.quarterly = b.quarterly
+        ON a.body_quarterly = b.growth_quarterly
         WHERE a.ikid = #{ikid}
     </select>
 
@@ -29,7 +29,7 @@
         INSERT t_growth
         SET ikid = #{ikid}
         , growth_date = #{growthDate}
-        , quarterly = #{growthQuarterly}
+        , growth_quarterly = #{growthQuarterly}
         <if test="polite > 0">
             , polite = #{polite}
         </if>
@@ -46,7 +46,7 @@
     <insert id="kidBodyInsDetail">
         INSERT t_body
         SET ikid = #{ikid}
-        , quarterly = #{bodyQuarterly}
+        , body_quarterly = #{bodyQuarterly}
         , body_date = #{bodyDate}
         <if test="height > 0">
             , height = #{height}

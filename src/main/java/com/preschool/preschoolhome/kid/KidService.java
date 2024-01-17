@@ -8,12 +8,14 @@ import com.preschool.preschoolhome.kid.model.sel.KidGrowth;
 import com.preschool.preschoolhome.kid.model.sel.KidParent;
 import com.preschool.preschoolhome.kid.model.sel.KidProfileVo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class KidService {
@@ -61,30 +63,33 @@ public class KidService {
                 return new ResVo(Const.FAIL);
             }
         }
+
         for (KidDetailInsDto dto : list) {
             int growthmonth = Integer.parseInt(dto.getGrowthDate().substring(5, 7));
             int bodymonth = Integer.parseInt(dto.getBodyDate().substring(5, 7));
             switch (growthmonth / 3) {
-                case 0: dto.setQuarterly(4);
-                case 1: dto.setQuarterly(1);
-                case 2: dto.setQuarterly(2);
-                case 3: dto.setQuarterly(3);
-                case 4: dto.setQuarterly(4);
+                case 0: dto.setGrowthQuarterly(4); break;
+                case 1: dto.setGrowthQuarterly(1); break;
+                case 2: dto.setGrowthQuarterly(2); break;
+                case 3: dto.setGrowthQuarterly(3); break;
+                case 4: dto.setGrowthQuarterly(4); break;
             }
             switch (bodymonth / 3) {
-                case 0: dto.setQuarterly(4);
-                case 1: dto.setQuarterly(1);
-                case 2: dto.setQuarterly(2);
-                case 3: dto.setQuarterly(3);
-                case 4: dto.setQuarterly(4);
+                case 0: dto.setBodyQuarterly(4); break;
+                case 1: dto.setBodyQuarterly(1); break;
+                case 2: dto.setBodyQuarterly(2); break;
+                case 3: dto.setBodyQuarterly(3); break;
+                case 4: dto.setBodyQuarterly(4); break;
             }
-            mapper.kidGrowthInsDetail(dto);
+                //같은 분기가 들어오지 않는 작업 필요
+                mapper.kidGrowthInsDetail(dto);
 
-            mapper.kidBodyInsDetail(dto);
+                mapper.kidBodyInsDetail(dto);
 
+            }
+            return new ResVo(Const.SUCCESS);
         }
-        return new ResVo(Const.SUCCESS);
-    }
+
 
     ResVo kidUpdDetail(List<KidDetailUpdDto> list) {
         for (KidDetailUpdDto dto : list) {

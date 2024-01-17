@@ -1,5 +1,6 @@
 package com.preschool.preschoolhome.kid.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -14,5 +15,8 @@ public class KidDetailInsDto {
     private String growthMemo;
     private String growthDate;
     private String bodyDate;
-    private int quarterly;
+    @JsonIgnore
+    private int bodyQuarterly;
+    @JsonIgnore
+    private int growthQuarterly;
 }
