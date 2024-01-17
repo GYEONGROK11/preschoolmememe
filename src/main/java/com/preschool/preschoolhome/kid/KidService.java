@@ -11,6 +11,7 @@ import com.preschool.preschoolhome.kid.model.sel.KidProfileVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -154,4 +155,12 @@ public class KidService {
         mapper.kidUpdProfile(dto);
         return new ResVo(Const.SUCCESS);
     }
+
+    public ResVo allGraduateKid(int year, int irank){
+        if (irank < 2) {
+            return new ResVo(Const.FAIL);
+        }
+        return null;
+    }
+
 }

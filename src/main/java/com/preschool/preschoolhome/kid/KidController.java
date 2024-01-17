@@ -57,4 +57,11 @@ public class KidController {
         return service.kidUpdProfile(pic, dto);
     }
 
+    @DeleteMapping("/{year}")
+    public ResVo delAllGraduateKid(@PathVariable int year, int irank){
+        return service.allGraduateKid(year,irank);
+    }
+
+
+
 }
