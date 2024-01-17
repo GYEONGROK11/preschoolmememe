@@ -16,6 +16,7 @@
         ON a.iparent = b.iparent
         WHERE b.ikid = #{ikid}
     </select>
+
     <select id="kidGrowth">
         SELECT a.height, a.weight, a.body_date as bodyDate, b.polite, b.activity
         , b.creativity, b.growth_date as growthDate, b.growth_memo as growthMemo
