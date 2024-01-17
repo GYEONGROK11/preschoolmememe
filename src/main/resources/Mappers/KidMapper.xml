@@ -115,8 +115,7 @@
     <select id="selIkid">
         SELECT ikid
         FROM t_kid
-        WHERE kid_nm = #{kidNm}
-        AND code = #{code}
+        WHERE code = #{code}
     </select>
     
     <update id="kidUpdProfile">

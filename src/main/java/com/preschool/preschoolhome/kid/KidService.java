@@ -1,6 +1,7 @@
 package com.preschool.preschoolhome.kid;
 
 import com.preschool.preschoolhome.common.Const;
+import com.preschool.preschoolhome.common.MyFileUtils;
 import com.preschool.preschoolhome.common.ResVo;
 import com.preschool.preschoolhome.kid.model.*;
 import com.preschool.preschoolhome.kid.model.sel.KidDetailEditVo;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KidService {
     private final KidMapper mapper;
+    private final MyFileUtils myFileUtils;
 
     public KidProfileVo kidProfile(int ikid, int irank) {
         KidProfileVo vo = new KidProfileVo();
@@ -37,14 +40,18 @@ public class KidService {
 
     }
 
-    public KidInsVo kidSignup(KidInsDto dto) {
+    public KidInsVo kidSignup(MultipartFile pic, KidInsDto dto) {
         if (dto.getKidNm() == null || dto.getBirth() == null ||
                 dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
-                dto.getProfile() == null || dto.getIrank() < 2) {
+                pic == null || dto.getIrank() < 2) {
             KidInsVo vo1 = new KidInsVo();
             vo1.setResult(Const.FAIL);
             return vo1;
         }
+
+        String path = "/kid/";
+        String savedPicFileNm = myFileUtils.transferTo(pic, path);
+        dto.setProfile(savedPicFileNm);
         mapper.kidSignup(dto);
         int ikid = mapper.selIkid(dto);
         KidInsVo vo2 = new KidInsVo();
@@ -119,13 +126,17 @@ public class KidService {
         return vo;
     }
 
-    public ResVo kidUpdProfile(KidUpdDto dto) {
+    public ResVo kidUpdProfile(MultipartFile pic, KidUpdDto dto) {
         if (dto.getKidNm() == null || dto.getBirth() == null ||
                 dto.getAddress() == null || !(dto.getGender() == 0 || dto.getGender() == 1) ||
-                dto.getProfile() == null || dto.getIrank() < 2) {
+                pic == null || dto.getIrank() < 2) {
             ResVo vo1 = new ResVo(Const.FAIL);
             return vo1;
         }
+        String path = "/kid/"+dto.getIkid();
+        myFileUtils.delFolderTrigger(path);
+        String savedPicFileNm = myFileUtils.transferTo(pic, path);
+        dto.setProfile(savedPicFileNm);
         mapper.kidUpdProfile(dto);
         return new ResVo(Const.SUCCESS);
     }

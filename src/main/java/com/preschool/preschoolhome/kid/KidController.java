@@ -7,6 +7,7 @@ import com.preschool.preschoolhome.kid.model.sel.KidProfileVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class KidController {
         return service.kidProfile(ikid,irank);
     }
     @PostMapping
-    public KidInsVo postKidSignup(@RequestBody KidInsDto dto){
-        return service.kidSignup(dto);
+    public KidInsVo postKidSignup(@RequestPart MultipartFile pic, @RequestPart KidInsDto dto){
+        return service.kidSignup(pic, dto);
     }
 
     @PostMapping("/detail")
@@ -42,8 +43,8 @@ public class KidController {
     }
 
     @PutMapping
-    public ResVo putKidProfile(@RequestBody KidUpdDto dto){
-        return service.kidUpdProfile(dto);
+    public ResVo putKidProfile(@RequestPart MultipartFile pic, @RequestPart  KidUpdDto dto){
+        return service.kidUpdProfile(pic, dto);
     }
 
 }

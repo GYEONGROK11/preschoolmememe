@@ -14,7 +14,7 @@ public class KidDetailEditVo {
     private String birth;
     private String address;
     private String memo;
-    private String emernm;
-    private String emernb;
+    private String emerNm;
+    private String emerNb;
 
 }

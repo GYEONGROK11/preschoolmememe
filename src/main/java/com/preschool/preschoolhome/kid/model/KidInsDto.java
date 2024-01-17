@@ -12,6 +12,7 @@ public class KidInsDto {
     private String kidNm;
     private int iclass;
     private int gender;
+    @JsonIgnore
     private String profile;
     private String birth;
     private String address;
@@ -19,7 +20,7 @@ public class KidInsDto {
     private String code;
     private String memo;
     private int irank;
-    private String emernm;
-    private String emernb;
+    private String emerNm;
+    private String emerNb;
 
 }
