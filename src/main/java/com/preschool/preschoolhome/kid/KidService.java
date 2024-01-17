@@ -11,8 +11,6 @@ import com.preschool.preschoolhome.kid.model.sel.KidProfileVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -24,7 +22,7 @@ public class KidService {
     private final KidMapper mapper;
     private final MyFileUtils myFileUtils;
 
-    public KidProfileVo kidProfile(int ikid, int irank) {
+    public KidProfileVo kidProfile(int year, int ikid, int irank) {
         KidProfileVo vo = new KidProfileVo();
         if (irank < 2) {
             vo.setResult(Const.FAIL);
@@ -33,7 +31,7 @@ public class KidService {
         vo = mapper.kidProfile(ikid);
         vo.setResult(Const.SUCCESS);
         List<KidParent> parents = mapper.kidParent(ikid);
-        List<KidGrowth> growths = mapper.kidGrowth(ikid);
+        List<KidGrowth> growths = mapper.kidGrowth(ikid, year);
         vo.setGrowths(growths);
         vo.setParents(parents);
         return vo;
@@ -49,7 +47,7 @@ public class KidService {
             return vo1;
         }
 
-        String path = "/kid/";
+        String path = "/kid/profile";
         String savedPicFileNm = myFileUtils.transferTo(pic, path);
         dto.setProfile(savedPicFileNm);
         mapper.kidSignup(dto);
@@ -109,6 +107,22 @@ public class KidService {
             }
         }
         for (KidDetailUpdDto dto : list) {
+            int growthmonth = Integer.parseInt(dto.getGrowthDate().substring(5, 7));
+            int bodymonth = Integer.parseInt(dto.getBodyDate().substring(5, 7));
+            switch (growthmonth / 3) {
+                case 0: dto.setGrowthQuarterly(4); break;
+                case 1: dto.setGrowthQuarterly(1); break;
+                case 2: dto.setGrowthQuarterly(2); break;
+                case 3: dto.setGrowthQuarterly(3); break;
+                case 4: dto.setGrowthQuarterly(4); break;
+            }
+            switch (bodymonth / 3) {
+                case 0: dto.setBodyQuarterly(4); break;
+                case 1: dto.setBodyQuarterly(1); break;
+                case 2: dto.setBodyQuarterly(2); break;
+                case 3: dto.setBodyQuarterly(3); break;
+                case 4: dto.setBodyQuarterly(4); break;
+            }
             mapper.kidGrowthUpdDetail(dto);
             mapper.kidBodyUpdDetail(dto);
         }

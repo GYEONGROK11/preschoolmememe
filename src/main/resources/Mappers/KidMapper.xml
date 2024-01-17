@@ -24,6 +24,8 @@
         LEFT JOIN t_growth b
         ON a.body_quarterly = b.growth_quarterly
         WHERE a.ikid = #{ikid}
+        and year(body_date) = #{year}
+        and year(growth_date) = #{year}
     </select>
 
     <insert id="kidGrowthInsDetail">
@@ -78,6 +80,7 @@
         <if test="growthMemo != null">
             , growth_memo = #{growthMemo}
         </if>
+            , growth_quarterly = #{growthQuarterly}
         </set>
         WHERE ikid = #{ikid}
         and growth_date = #{growthDate}
@@ -91,6 +94,7 @@
         <if test="weight > 0">
             , weight = #{weight}
         </if>
+            , body_quarterly = #{bodyQuarterly}
         </set>
         WHERE ikid = #{ikid}
         and body_date = #{bodyDate}

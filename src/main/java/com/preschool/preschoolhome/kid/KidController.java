@@ -21,36 +21,37 @@ import java.util.List;
 public class KidController {
     private final KidService service;
 
-    @Operation(summary = "원아 마이페이지", description = """
-                원아 페이지 정보<br>
-                리스트 안 result 값이<br>
-                -1 : 원아 조회 실패<br>
-                1 이상 : 원아 조회 성공""")
-    @GetMapping("/{ikid}")
-    public KidProfileVo getKidProfile(@PathVariable int ikid, int irank){
-        return service.kidProfile(ikid,irank);
+    @Operation(summary = "원아 마이페이지", description = "원아 마이페이지 조회")
+    @GetMapping("/{year}/{ikid}")
+    public KidProfileVo getKidProfile(@PathVariable int year,@PathVariable int ikid, int irank){
+        return service.kidProfile(year, ikid, irank);
     }
+
+    @Operation(summary = "원아 등록", description = "원아 등록")
     @PostMapping
     public KidInsVo postKidSignup(@RequestPart MultipartFile pic, @RequestPart KidInsDto dto){
         return service.kidSignup(pic, dto);
     }
 
+    @Operation(summary = "원아 발달사항 등록", description = "원아 발달사항 등록")
     @PostMapping("/detail")
     public ResVo postKidInsDetail(@RequestBody List<KidDetailInsDto> dto){
         return service.kidInsDetail(dto);
     }
 
+    @Operation(summary = "원아 발달사항 수정", description = "원아 발달사항 수정")
     @PutMapping("/detail")
     public ResVo putKidUpdDetail(@RequestBody List<KidDetailUpdDto> dto){
         return service.kidUpdDetail(dto);
     }
 
-    //원아 마이페이지 조회
+    @Operation(summary = "원아 수정 기존 정보 조회", description = "원아 수정 기존 정보 조회")
     @GetMapping("/detail/edit/{ikid}")
     public KidDetailEditVo getKidDetailEdit(@PathVariable int ikid, int irank){
         return service.kidDetailEdit(ikid,irank);
     }
 
+    @Operation(summary = "원아 마이페이지 수정", description = "원아 마이페이지 수정")
     @PutMapping
     public ResVo putKidProfile(@RequestPart MultipartFile pic, @RequestPart  KidUpdDto dto){
         return service.kidUpdProfile(pic, dto);

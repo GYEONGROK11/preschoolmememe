@@ -16,7 +16,7 @@ import java.util.List;
 public interface KidMapper {
     //원아 정보 출력
     KidProfileVo kidProfile(int ikid);
-    List<KidGrowth> kidGrowth(int ikid);
+    List<KidGrowth> kidGrowth(int ikid, int year);
     List<KidParent> kidParent(int ikid);
     //원아등록
     int kidSignup(KidInsDto dto);
