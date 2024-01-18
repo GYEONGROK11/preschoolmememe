@@ -8,11 +8,11 @@ import lombok.Data;
 public class KidParent {
     @Schema(title = "부모 pk")
     private int iparent;
-    @Schema(title = "아이디")
+    @Schema(title = "아이디", type = "String")
     private String uid;
-    @Schema(title = "부모 이름")
+    @Schema(title = "부모 이름", type = "String")
     private String parentNm;
-    @Schema(title = "부모 전화번호")
+    @Schema(title = "부모 전화번호", type = "String")
     private String phoneNb;
     @Schema(title = "관계")
     private int irelation;

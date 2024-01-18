@@ -15,13 +15,9 @@ public class KidDetailInsDto {
     private int height;
     @Schema(title = "체중")
     private int weight;
-    @Schema(title = "예의바른")
-    private int polite;
-    @Schema(title = "활발한")
-    private int activity;
-    @Schema(title = "창의적인")
-    private int creativity;
-    @Schema(title = "입력일")
+    @Schema(title = "칭찬카드")
+    private int growth;
+    @Schema(title = "입력일", type = "String")
     private String growthDate;
     @Schema(title = "발달사항 메모")
     private String growthMemo;

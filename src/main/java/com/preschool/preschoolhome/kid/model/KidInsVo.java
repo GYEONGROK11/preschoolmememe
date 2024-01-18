@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Data
 @Schema(title = "원아 코드 출력")
 public class KidInsVo {
-    @Schema(title = "결과")
-    private int result;
+    @Schema(title = "원아 PK")
+    private int ikid;
     @Schema(title = "코드")
     private String code;
 }

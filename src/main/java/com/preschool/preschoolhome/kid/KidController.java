@@ -21,10 +21,16 @@ import java.util.List;
 public class KidController {
     private final KidService service;
 
-    @Operation(summary = "원아 마이페이지", description = "원아 마이페이지 조회")
+    @Operation(summary = "원아 마이페이지", description = "원아 해당 년도 마이페이지 조회")
     @GetMapping("/{year}/{ikid}")
     public KidProfileVo getKidProfile(@PathVariable int year,@PathVariable int ikid, int irank){
         return service.kidProfile(year, ikid, irank);
+    }
+
+    @Operation(summary = "원아 코드 수정", description = "원아 코드 수정")
+    @PatchMapping("/code")
+    public ResVo patchKidCode(int ikid, int ilevel){
+        return service.kidCode(ikid, ilevel);
     }
 
     @Operation(summary = "원아 등록", description = "원아 등록")

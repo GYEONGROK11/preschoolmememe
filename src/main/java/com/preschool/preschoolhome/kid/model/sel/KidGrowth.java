@@ -7,21 +7,17 @@ import lombok.Data;
 @Data
 @Schema(title = "원아 발달사항")
 public class KidGrowth {
-    @Schema(title = "키")
+    @Schema(title = "키", type = "int")
     private int height;
     @Schema(title = "체중")
     private int weight;
-    @Schema(title = "측정일")
+    @Schema(title = "측정일", type = "String")
     private String bodyDate;
-    @Schema(title = "예의바른")
-    private int polite;
-    @Schema(title = "활발한")
-    private int activity;
-    @Schema(title = "창의적인")
-    private int creativity;
-    @Schema(title = "입력일")
+    @Schema(title = "칭찬카드")
+    private int growth;
+    @Schema(title = "입력일", type = "String")
     private String growthDate;
-    @Schema(title = "발달사항 메모")
+    @Schema(title = "발달사항 메모", type = "String")
     private String growthMemo;
     @JsonIgnore
     private int bodyQuarterly;

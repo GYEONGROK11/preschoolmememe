@@ -19,6 +19,8 @@ public interface KidMapper {
     KidProfileVo kidProfile(int ikid);
     List<KidGrowth> kidGrowth(int ikid, int year);
     List<KidParent> kidParent(int ikid);
+    //원아 코드 수정
+    int kidCode(int ikid);
     //원아등록
     int kidSignup(KidInsDto dto);
     int selIkid(KidInsDto dto);
