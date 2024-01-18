@@ -143,5 +143,10 @@
         FROM t_kid
         WHERE ikid = #{ikid}
     </select>
-    
+
+    <update id="allGraduateKid">
+        UPDATE t_kid
+        SET state = -1
+        WHERE year(birth) = year(birth) > #{year}
+    </update>
 </mapper>

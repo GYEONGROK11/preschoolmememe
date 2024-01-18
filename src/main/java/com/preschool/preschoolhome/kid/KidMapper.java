@@ -1,5 +1,6 @@
 package com.preschool.preschoolhome.kid;
 
+import com.preschool.preschoolhome.common.ResVo;
 import com.preschool.preschoolhome.kid.model.KidDetailInsDto;
 import com.preschool.preschoolhome.kid.model.KidDetailUpdDto;
 import com.preschool.preschoolhome.kid.model.sel.KidDetailEditVo;
@@ -31,6 +32,8 @@ public interface KidMapper {
     int kidUpdProfile(KidUpdDto dto);
     //원아 수정 시 기존 정보 출력
     KidDetailEditVo kidDetailEdit(int ikid);
+    //원아 해당년도 모두 졸업
+    int allGraduateKid(int year);
 
 
 }

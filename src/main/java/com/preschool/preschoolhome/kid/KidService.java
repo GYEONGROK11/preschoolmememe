@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -156,11 +157,15 @@ public class KidService {
         return new ResVo(Const.SUCCESS);
     }
 
-    public ResVo allGraduateKid(int year, int irank){
-        if (irank < 2) {
+    public ResVo allGraduateKid(int irank){
+        if (irank < 3) {
             return new ResVo(Const.FAIL);
         }
-        return null;
+        LocalDate now = LocalDate.now();
+        int nowYear = now.getYear();//현재년도
+        int year1 = nowYear - Const.GRADUATE_YEAR;
+        mapper.allGraduateKid(year1);
+        return new ResVo(Const.SUCCESS);
     }
 
 }
