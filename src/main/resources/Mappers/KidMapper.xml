@@ -144,9 +144,28 @@
         WHERE ikid = #{ikid}
     </select>
 
-    <update id="allGraduateKid">
-        UPDATE t_kid
-        SET state = -1
-        WHERE year(birth) = year(birth) > #{year}
-    </update>
+    <delete id="allGraduateKid">
+        DELETE b, c, d, e, f, g, h
+        FROM t_kid a
+        left JOIN t_parent_kid b
+        ON a.ikid = b.ikid
+        left JOIN t_growth c
+        ON a.ikid = c.ikid
+        left JOIN t_body d
+        ON a.ikid = d.ikid
+        left JOIN t_grade e
+        ON a.ikid = e.ikid
+        left JOIN t_notice_board f
+        ON a.ikid = f.ikid
+        left JOIN t_notice_pics g
+        ON f.inotice = g.inotice
+        left JOIN t_notice_comment h
+        ON f.inotice = h.inotice
+        WHERE YEAR(CURRENT_DATE) - 13 >= YEAR(a.birth)
+    </delete>
+    <delete id="allGraduateDelKid">
+        DELETE
+        FROM t_kid
+        WHERE YEAR(CURRENT_DATE) - 13 >= YEAR(a.birth)
+    </delete>
 </mapper>

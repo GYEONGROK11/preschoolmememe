@@ -157,14 +157,12 @@ public class KidService {
         return new ResVo(Const.SUCCESS);
     }
 
-    public ResVo allGraduateKid(int irank){
-        if (irank < 3) {
+    public ResVo allGraduateKid(int ilevel){
+        if (ilevel < 3) {
             return new ResVo(Const.FAIL);
         }
-        LocalDate now = LocalDate.now();
-        int nowYear = now.getYear();//현재년도
-        int year1 = nowYear - Const.GRADUATE_YEAR;
-        mapper.allGraduateKid(year1);
+        mapper.allGraduateKid();
+        mapper.allGraduateDelKid();
         return new ResVo(Const.SUCCESS);
     }
 

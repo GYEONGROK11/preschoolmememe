@@ -33,7 +33,8 @@ public interface KidMapper {
     //원아 수정 시 기존 정보 출력
     KidDetailEditVo kidDetailEdit(int ikid);
     //원아 해당년도 모두 졸업
-    int allGraduateKid(int year);
+    int allGraduateKid();
+    int allGraduateDelKid();
 
 
 }
