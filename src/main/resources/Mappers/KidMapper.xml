@@ -166,6 +166,6 @@
     <delete id="allGraduateDelKid">
         DELETE
         FROM t_kid
-        WHERE YEAR(CURRENT_DATE) - 13 >= YEAR(a.birth)
+        WHERE YEAR(CURRENT_DATE) - 13 >= YEAR(birth)
     </delete>
 </mapper>
