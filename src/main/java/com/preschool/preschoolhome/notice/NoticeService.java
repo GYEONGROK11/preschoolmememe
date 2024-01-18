@@ -3,6 +3,7 @@ package com.preschool.preschoolhome.notice;
 import com.preschool.preschoolhome.common.Const;
 import com.preschool.preschoolhome.common.ResVo;
 import com.preschool.preschoolhome.notice.model.NoticeInsDto;
+import com.preschool.preschoolhome.notice.model.NoticeUpdDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,11 @@ public class NoticeService {
         mapper.insNotice(dto);
         mapper.insNiticePics(dto);
         return new ResVo(Const.SUCCESS);
+    }
+
+    ResVo updNotice(NoticeUpdDto dto){
+
+
+        return null;
     }
 }
