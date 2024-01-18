@@ -18,4 +18,6 @@
             #{inotice}, #{pic}
         </foreach>
     </insert>
+
+
 </mapper>
